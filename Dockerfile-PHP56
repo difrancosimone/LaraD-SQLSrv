@@ -1,0 +1,24 @@
+FROM debian:jessie
+
+ENV RELEASE_DATE 2017-03-16
+ENV DEBIAN_FRONTEND noninteractive
+ENV APACHE_HTTPD "exec /usr/sbin/apache2"
+
+RUN \
+  apt-get -qq update && \
+  apt-get -qq install \
+    apache2 php5 ssmtp mariadb-client freetds-common freetds-dev freetds-bin tdsodbc unixodbc libapache2-mod-php5 php5-mysql php5-json php5-curl php5-intl php-pear php5-imagick php5-mcrypt php5-memcache php5-pspell php5-recode php5-sqlite php5-tidy php5-xmlrpc php5-xsl php5-sybase \
+    && \
+  apt-get clean
+
+RUN a2enmod headers
+RUN a2enmod rewrite
+
+VOLUME /var/www
+VOLUME /etc/apache2/sites-available/
+VOLUME /etc/freetds/
+VOLUME ["/etc/apache2/sites-available", "/etc/apache2/sites-enabled"]
+
+EXPOSE 80
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
