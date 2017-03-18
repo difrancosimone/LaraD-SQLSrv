@@ -16,3 +16,8 @@ docker run -v Development/app:/var/www -v Development/apache/000-default.conf:/e
 Point your browser to http://localhost
 
 *CORS enabled in Apache
+
+Docker image is already on Docker Hub 
+https://hub.docker.com/r/simodifra/larad-sqlsrv/
+
+you can run directly without build it.
